@@ -20,7 +20,11 @@ export default {
 
 <style scoped>
 #top-nav {
-  background: blueviolet;
+  background-image: linear-gradient(
+    178.2deg,
+    rgba(39, 101, 255, 1) 3.6%,
+    rgba(154, 234, 255, 1) 101.6%
+  );
 }
 #nav {
   display: flex;
@@ -36,6 +40,6 @@ export default {
 #nav a:hover {
   text-decoration: none;
   font-weight: 900;
-  background: rgb(103, 112, 241);
+  background: rgb(12, 134, 235);
 }
 </style>
