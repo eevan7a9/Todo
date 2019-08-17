@@ -9,7 +9,7 @@ export default new Vuex.Store({
       {
         id: 1,
         title: "Todo First",
-        completed: 0
+        completed: 1
       },
       {
         id: 2,
@@ -19,7 +19,7 @@ export default new Vuex.Store({
       {
         id: 3,
         title: "Todo Third",
-        completed: 1
+        completed: 0
       },
       {
         id: 4,
