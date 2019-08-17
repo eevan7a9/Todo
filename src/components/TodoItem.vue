@@ -54,11 +54,6 @@ export default {
         title: this.title,
         completed: this.todo.completed
       });
-      console.log({
-        id: this.todo.id,
-        title: this.title,
-        completed: this.todo.completed
-      });
     }
   }
 };

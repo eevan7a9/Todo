@@ -2,10 +2,17 @@
   <main>
     <!-- Add Todo -->
     <AddTodo />
+    <FilterTodo />
     <hr />
     <section id="list_container">
-      <div class="card" v-for="todo in allTodos" :key="todo.id">
+      <div
+        class="card"
+        v-for="todo in allTodos"
+        :key="todo.id"
+        :class="{'hide': getFilterBy == todo.completed}"
+      >
         <!-- Todo Items -->
+
         <TodoItem :todo="todo" />
       </div>
     </section>
@@ -14,16 +21,18 @@
 
 <script>
 import AddTodo from "./AddTodo";
+import FilterTodo from "./FilterTodo";
 import TodoItem from "./TodoItem";
 import { mapGetters } from "vuex";
 export default {
   name: "TodoLists",
   components: {
     AddTodo,
+    FilterTodo,
     TodoItem
   },
   computed: {
-    ...mapGetters(["allTodos"]) // We get the Todos array from state
+    ...mapGetters(["allTodos", "getFilterBy"]) // We get the Todos array from state
   }
 };
 </script>
@@ -36,5 +45,8 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5px;
+}
+.hide {
+  display: none;
 }
 </style>

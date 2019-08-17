@@ -27,7 +27,8 @@ export default new Vuex.Store({
         completed: 0
       }
     ],
-    new_todo_id: 5
+    new_todo_id: 5,
+    filter_todo_by: 2
   },
   getters: {
     allTodos: function(state) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     },
     newTodoId: function(state) {
       return state.new_todo_id;
+    },
+    getFilterBy: function(state) {
+      return state.filter_todo_by;
     }
   },
 
@@ -48,6 +52,9 @@ export default new Vuex.Store({
     },
     updateTodo({ commit }, todo) {
       commit("editTodo", todo);
+    },
+    filterTodo({ commit }, base) {
+      commit("filterTodos", base);
     }
   },
   mutations: {
@@ -68,6 +75,9 @@ export default new Vuex.Store({
           todo.completed = edited_todo.completed;
         }
       }
+    },
+    filterTodos(state, base) {
+      state.filter_todo_by = base;
     }
   }
 });

@@ -13,7 +13,7 @@
       </div>
       <small id="helpId" class="text-muted">New Todo</small>
     </div>
-    <button class="btn add mb-2" @click="addNewTodo()">Add +</button>
+    <button class="btn add mb-2" id="add" @click="addNewTodo()">Add +</button>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style>
-.add {
+#add {
   background-image: linear-gradient(
     178.2deg,
     rgba(39, 101, 255, 1) 3.6%,
