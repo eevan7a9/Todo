@@ -1,19 +1,12 @@
 <template>
   <main>
+    <!-- Add Todo -->
     <AddTodo />
     <hr />
     <section id="list_container">
       <div class="card" v-for="todo in allTodos" :key="todo.id">
-        <div class="card-header">
-          <div class="form-check form-check-inline" id="todo_action">
-            <button class="btn btn-danger" @click="deleteTodo(todo.id)">X</button>
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" />
-              Completed
-            </label>
-          </div>
-        </div>
-        <div class="card-body">{{todo.id}} {{todo.title}}</div>
+        <!-- Todo Items -->
+        <TodoItem :todo="todo" />
       </div>
     </section>
   </main>
@@ -21,17 +14,16 @@
 
 <script>
 import AddTodo from "./AddTodo";
-import { mapGetters, mapActions } from "vuex";
+import TodoItem from "./TodoItem";
+import { mapGetters } from "vuex";
 export default {
   name: "TodoLists",
   components: {
-    AddTodo
+    AddTodo,
+    TodoItem
   },
   computed: {
-    ...mapGetters(["allTodos"])
-  },
-  methods: {
-    ...mapActions(["deleteTodo"]) // takes todo.id as argument
+    ...mapGetters(["allTodos"]) // We get the Todos array from state
   }
 };
 </script>
@@ -44,9 +36,5 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5px;
-}
-#todo_action {
-  display: flex;
-  justify-content: space-between;
 }
 </style>
