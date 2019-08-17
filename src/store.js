@@ -26,11 +26,36 @@ export default new Vuex.Store({
         title: "Todo Fourth",
         completed: 0
       }
-    ]
+    ],
+    new_todo_id: 5
   },
   getters: {
-    allTodos: state => state.todos
+    allTodos: function(state) {
+      return state.todos;
+    },
+    newTodoId: function(state) {
+      return state.new_todo_id;
+    }
   },
-  mutations: {},
-  actions: {}
+
+  actions: {
+    addTodo({ commit }, addedTodo) {
+      commit("setNewTodo", addedTodo);
+      commit("increaseNewId");
+    },
+    deleteTodo({ commit }, id) {
+      commit("removeTodo", id);
+    }
+  },
+  mutations: {
+    setNewTodo(state, newTodo) {
+      state.todos.unshift(newTodo);
+    },
+    increaseNewId(state) {
+      state.new_todo_id += 1;
+    },
+    removeTodo(state, id) {
+      state.todos = state.todos.filter(todo => todo.id != id);
+    }
+  }
 });
