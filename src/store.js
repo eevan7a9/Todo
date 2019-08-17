@@ -45,6 +45,9 @@ export default new Vuex.Store({
     },
     deleteTodo({ commit }, id) {
       commit("removeTodo", id);
+    },
+    updateTodo({ commit }, todo) {
+      commit("editTodo", todo);
     }
   },
   mutations: {
@@ -56,6 +59,15 @@ export default new Vuex.Store({
     },
     removeTodo(state, id) {
       state.todos = state.todos.filter(todo => todo.id != id);
+    },
+    editTodo(state, edited_todo) {
+      for (let i = 0; i < state.todos.length; i++) {
+        const todo = state.todos[i];
+        if (todo.id == edited_todo.id) {
+          todo.title = edited_todo.title;
+          todo.completed = edited_todo.completed;
+        }
+      }
     }
   }
 });

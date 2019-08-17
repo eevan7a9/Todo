@@ -9,19 +9,42 @@
         </label>
       </div>
     </div>
-    <div class="card-body">{{todo.id}} {{todo.title}}</div>
+    <div
+      class="card-body"
+      id="title_display"
+      v-bind:class="{'hide': edit}"
+      @dblclick="editTodo"
+    >{{todo.id}} {{todo.title}}</div>
+    <div class="form-group pl-2 pr-2" v-bind:class="{'hide': !edit}">
+      <input type="text" class="form-control" v-model="title" @blur="editTodo" />
+    </div>
   </section>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+
 export default {
   name: "TodoItem",
   props: {
     todo: Object
   },
+  data() {
+    return {
+      title: this.todo.title,
+      edit: false
+    };
+  },
   methods: {
-    ...mapActions(["deleteTodo"]) // takes todo.id as argument
+    ...mapActions(["deleteTodo", "updateTodo"]), // takes todo.id as argument
+    editTodo() {
+      this.edit = !this.edit;
+      this.updateTodo({
+        id: this.todo.id,
+        title: this.title,
+        completed: this.todo.completed
+      });
+    }
   }
 };
 </script>
@@ -30,5 +53,15 @@ export default {
 #todo_action {
   display: flex;
   justify-content: space-between;
+}
+.hide {
+  display: none;
+}
+
+.show {
+  display: inline;
+}
+#title_edit {
+  display: none;
 }
 </style>
