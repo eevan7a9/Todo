@@ -23,7 +23,8 @@
 import AddTodo from "./AddTodo";
 import FilterTodo from "./FilterTodo";
 import TodoItem from "./TodoItem";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "TodoLists",
   components: {
@@ -31,8 +32,14 @@ export default {
     FilterTodo,
     TodoItem
   },
+  methods: {
+    ...mapActions(["getTodos"])
+  },
   computed: {
     ...mapGetters(["allTodos", "getFilterBy"]) // We get the Todos array from state
+  },
+  created() {
+    this.getTodos();
   }
 };
 </script>

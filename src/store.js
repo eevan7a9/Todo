@@ -1,7 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from 'axios';
 
 Vue.use(Vuex);
+// the base url of our api from our backend server
+axios.defaults.baseURL = 'http://localhost:8000/api';
 
 export default new Vuex.Store({
   state: {
@@ -31,18 +34,26 @@ export default new Vuex.Store({
     filter_todo_by: 2
   },
   getters: {
-    allTodos: function(state) {
+    allTodos: function (state) {
       return state.todos;
     },
-    newTodoId: function(state) {
+    newTodoId: function (state) {
       return state.new_todo_id;
     },
-    getFilterBy: function(state) {
+    getFilterBy: function (state) {
       return state.filter_todo_by;
     }
   },
 
   actions: {
+    async getTodos({ commit }) {
+      await axios.get('/todos')
+        .then(response => {
+          commit("setTodos", response.data)
+        }).catch(error => {
+          console.log(error);
+        })
+    },
     addTodo({ commit }, addedTodo) {
       commit("setNewTodo", addedTodo);
       commit("increaseNewId");
@@ -58,6 +69,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setTodos(state, todos) {
+      state.todos = todos;
+    },
     setNewTodo(state, newTodo) {
       state.todos.unshift(newTodo);
     },
