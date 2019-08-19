@@ -8,28 +8,7 @@ axios.defaults.baseURL = 'http://localhost:8000/api';
 
 export default new Vuex.Store({
   state: {
-    todos: [
-      {
-        id: 1,
-        title: "Todo First",
-        completed: 1
-      },
-      {
-        id: 2,
-        title: "Todo Second",
-        completed: 0
-      },
-      {
-        id: 3,
-        title: "Todo Third",
-        completed: 0
-      },
-      {
-        id: 4,
-        title: "Todo Fourth",
-        completed: 0
-      }
-    ],
+    todos: [],
     new_todo_id: 5,
     filter_todo_by: 2
   },
@@ -50,18 +29,37 @@ export default new Vuex.Store({
       await axios.get('/todos')
         .then(response => {
           commit("setTodos", response.data)
-        }).catch(error => {
-          console.log(error);
         })
+      // .catch(error => {
+      //   console.log(error);
+      // })
     },
-    addTodo({ commit }, addedTodo) {
-      commit("setNewTodo", addedTodo);
-      commit("increaseNewId");
+    async addTodo({ commit }, addedTodo) {
+      await axios.post('/todos', {
+        title: addedTodo.title,
+        completed: addedTodo.completed
+      })
+        .then(response => {
+          commit("setNewTodo", response.data)
+        })
+      // .catch(err => {
+      //   console.error(err);
+      // })
     },
     deleteTodo({ commit }, id) {
       commit("removeTodo", id);
     },
-    updateTodo({ commit }, todo) {
+    async updateTodo({ commit }, todo) {
+      await axios.put(`todos/${todo.id}`, {
+        title: todo.title,
+        completed: todo.completed
+      })
+        .then(response => {
+          commit("editTodo", response.data)
+        })
+      // .catch(err => {
+      //   console.error(err);
+      // })
       commit("editTodo", todo);
     },
     filterTodo({ commit }, base) {
