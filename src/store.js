@@ -46,8 +46,14 @@ export default new Vuex.Store({
       //   console.error(err);
       // })
     },
-    deleteTodo({ commit }, id) {
-      commit("removeTodo", id);
+    async deleteTodo({ commit }, id) {
+      await axios.delete(`todos/${id}`)
+        .then(response => {
+          commit('removeTodo', response.data)
+        })
+      // .catch(err => {
+      //   console.error(err);
+      // })
     },
     async updateTodo({ commit }, todo) {
       await axios.put(`todos/${todo.id}`, {
@@ -60,7 +66,6 @@ export default new Vuex.Store({
       // .catch(err => {
       //   console.error(err);
       // })
-      commit("editTodo", todo);
     },
     filterTodo({ commit }, base) {
       commit("filterTodos", base);
@@ -76,8 +81,8 @@ export default new Vuex.Store({
     increaseNewId(state) {
       state.new_todo_id += 1;
     },
-    removeTodo(state, id) {
-      state.todos = state.todos.filter(todo => todo.id != id);
+    removeTodo(state, delete_todo) {
+      state.todos = state.todos.filter(todo => todo.id != delete_todo.id);
     },
     editTodo(state, edited_todo) {
       for (let i = 0; i < state.todos.length; i++) {
