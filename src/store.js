@@ -9,15 +9,11 @@ axios.defaults.baseURL = 'http://localhost/Todo_backend/public/api';
 export default new Vuex.Store({
   state: {
     todos: [],
-    new_todo_id: 5,
     filter_todo_by: 2
   },
   getters: {
     allTodos: function (state) {
       return state.todos;
-    },
-    newTodoId: function (state) {
-      return state.new_todo_id;
     },
     getFilterBy: function (state) {
       return state.filter_todo_by;

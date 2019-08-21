@@ -19,7 +19,7 @@
 
 <script>
 // we use mapActions to access action object from store.js
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "AddTodo",
   data() {
@@ -27,14 +27,10 @@ export default {
       title: ""
     };
   },
-  computed: {
-    ...mapGetters(["newTodoId"])
-  },
   methods: {
     ...mapActions(["addTodo"]), //  we access addTodo from store.js
     addNewTodo() {
       this.addTodo({
-        id: this.newTodoId,
         title: this.title,
         completed: 0
       });
