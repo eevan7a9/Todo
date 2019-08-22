@@ -12,6 +12,10 @@
       <router-link to="/register">
         <a>Register</a>
       </router-link>
+
+      <router-link to="/login">
+        <a>Login</a>
+      </router-link>
     </div>
   </nav>
 </template>
