@@ -63,6 +63,9 @@ export default new Vuex.Store({
       //   console.error(err);
       // })
     },
+    registerUser({ commit }, new_user) {
+      console.log(new_user.username, new_user.email, new_user.password);
+    },
     filterTodo({ commit }, base) {
       commit("filterTodos", base);
     }

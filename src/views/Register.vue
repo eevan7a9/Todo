@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Register",
   data() {
@@ -79,9 +80,14 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["registerUser"]),
     submit(e) {
       e.preventDefault();
-      console.log([this.username, this.email, this.password]);
+      this.registerUser({
+        username: this.username,
+        email: this.email,
+        password: this.password
+      });
     }
   }
 };
