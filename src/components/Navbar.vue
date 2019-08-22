@@ -8,6 +8,10 @@
       <router-link to="/about">
         <a>About</a>
       </router-link>
+
+      <router-link to="/register">
+        <a>Register</a>
+      </router-link>
     </div>
   </nav>
 </template>
