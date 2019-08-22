@@ -9,7 +9,8 @@ axios.defaults.baseURL = 'http://localhost/Todo_backend/public/api';
 export default new Vuex.Store({
   state: {
     todos: [],
-    filter_todo_by: 2
+    filter_todo_by: 2, // 2 show all , 0 show completed, 1 show uncomplete
+    user_token: localStorage.getItem("todo_user_token") || null,
   },
   getters: {
     allTodos: function (state) {
@@ -21,6 +22,11 @@ export default new Vuex.Store({
   },
 
   actions: {
+    getToken({ commit }) {
+      const get_token = localStorage.getItem("todo_user_token");
+      const token = get_token ? get_token : null;
+      commit("setUserToken", token)
+    },
     async getTodos({ commit }) {
       await axios.get('/todos')
         .then(response => {
@@ -63,11 +69,25 @@ export default new Vuex.Store({
       //   console.error(err);
       // })
     },
-    registerUser({ commit }, new_user) {
-      console.log(new_user.username, new_user.email, new_user.password);
-    },
-    loginUser({ commit }, user) {
-      console.log(user.username, user.password);
+    // registerUser({ commit }, new_user) {
+    //   console.log(new_user.username, new_user.email, new_user.password);
+    // },
+    async loginUser({ commit }, user) {
+      await axios.post("/login",
+        {
+          username: user.username,
+          password: user.password
+        })
+        .then(response => {
+          // console.log(response.data.access_token);
+          const token = response.data.access_token
+          localStorage.setItem("todo_user_token", token);
+          commit("setUserToken", token);
+        })
+      // .catch(err => {
+      //   console.error(err);
+      // })
+
     },
     filterTodo({ commit }, base) {
       commit("filterTodos", base);
@@ -97,6 +117,9 @@ export default new Vuex.Store({
     },
     filterTodos(state, base) {
       state.filter_todo_by = base;
+    },
+    setUserToken(state, token) {
+      state.user_token = token;
     }
   }
 });
