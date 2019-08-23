@@ -19,6 +19,9 @@ export default new Vuex.Store({
     },
     getFilterBy: function (state) {
       return state.filter_todo_by;
+    },
+    getUserLogin: function (state) {
+      return state.user_login;
     }
   },
 
@@ -85,9 +88,12 @@ export default new Vuex.Store({
           localStorage.setItem("todo_user_token", token);
           commit("setUserToken", token);
         })
-      // .catch(err => {
-      //   console.error(err);
-      // })
+        .catch(err => {
+          if (err) {
+            localStorage.removeItem('todo_user_token');
+            commit("setUserToken", null);
+          }
+        })
 
     },
     filterTodo({ commit }, base) {
@@ -122,6 +128,8 @@ export default new Vuex.Store({
     setUserToken(state, token) {
       if (token) { // if token exist user is login to true
         state.user_login = true;
+      } else {
+        state.user_login = false;
       }
       state.user_token = token;
     }

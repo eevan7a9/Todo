@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Login",
   data() {
@@ -58,8 +58,15 @@ export default {
       this.loginUser({
         username: this.username,
         password: this.password
+      }).then(() => {
+        if (this.getUserLogin) {
+          this.$router.push({ name: "home", query: { redirect: "/" } });
+        }
       });
     }
+  },
+  computed: {
+    ...mapGetters(["getUserLogin"])
   }
 };
 </script>
