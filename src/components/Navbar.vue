@@ -16,6 +16,9 @@
       <router-link to="/login">
         <a>Login</a>
       </router-link>
+      <router-link to="/logout">
+        <a>Logout</a>
+      </router-link>
     </div>
   </nav>
 </template>

@@ -106,6 +106,17 @@ export default new Vuex.Store({
           }
         })
     },
+    async logoutUser({ commit }) {
+
+      await axios.post("/logout", null, {
+        headers: {
+          "Authorization": `Bearer ${this.state.user_token}`,
+          "Accept": 'application/json'
+        }
+      })
+      localStorage.removeItem("todo_user_token");
+      commit("setUserToken", null)
+    },
     filterTodo({ commit }, base) {
       commit("filterTodos", base);
     }
