@@ -59,14 +59,14 @@ export default {
         username: this.username,
         password: this.password
       }).then(() => {
-        if (this.getUserLogin) {
+        if (this.getUserToken) {
           this.$router.push({ name: "home", query: { redirect: "/" } });
         }
       });
     }
   },
   computed: {
-    ...mapGetters(["getUserLogin"])
+    ...mapGetters(["getUserToken"])
   }
 };
 </script>
