@@ -73,8 +73,19 @@ export default new Vuex.Store({
       //   console.error(err);
       // })
     },
-    registerUser({ commit }, new_user) {
-      console.log(new_user.username, new_user.email, new_user.password);
+    async registerUser(new_user) {
+      await axios.post('/register', {
+        name: new_user.username,
+        email: new_user.email,
+        password: new_user.password
+      });
+      //   .then(response => {
+      //     console.log(response.data)
+      //   })
+      //   .catch(err => {
+      //     console.error(err);
+      //   })
+      // console.log(new_user.username, new_user.email, new_user.password);
     },
     async loginUser({ commit }, user) {
       await axios.post("/login",
@@ -94,7 +105,6 @@ export default new Vuex.Store({
             commit("setUserToken", null);
           }
         })
-
     },
     filterTodo({ commit }, base) {
       commit("filterTodos", base);
