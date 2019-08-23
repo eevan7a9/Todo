@@ -11,6 +11,7 @@ export default new Vuex.Store({
     todos: [],
     filter_todo_by: 2, // 2 show all , 0 show completed, 1 show uncomplete
     user_token: localStorage.getItem("todo_user_token") || null,
+    user_login: false
   },
   getters: {
     allTodos: function (state) {
@@ -119,6 +120,9 @@ export default new Vuex.Store({
       state.filter_todo_by = base;
     },
     setUserToken(state, token) {
+      if (token) { // if token exist user is login to true
+        state.user_login = true;
+      }
       state.user_token = token;
     }
   }
