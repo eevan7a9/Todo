@@ -55,7 +55,16 @@
             />
           </div>
           <div class="submit-container">
-            <button type="submit" class="btn btn-primary" id="submit" @click="submit">Submit</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="submit"
+              @click="submit"
+              :disabled="disableSubmit()"
+              :class="{'disable-btn': disableSubmit()}"
+            >Submit</button>
+            <small class="text-muted" v-if="disableSubmit()">Enter Valid Credentials</small>
+            <small class="text-success" v-else>Alright, looks good</small>
           </div>
         </form>
       </div>
@@ -73,21 +82,49 @@ export default {
   name: "Register",
   data() {
     return {
-      username: "",
-      email: "",
+      username: null,
+      email: null,
       password: "",
       confirmed: ""
     };
   },
   methods: {
     ...mapActions(["registerUser"]),
+    validateUsername() {
+      // username must atleast 5 char
+      return this.username && this.username.length > 4;
+    },
+    validateEmail() {
+      // must be valid address
+      var re = /\S+@\S+\.\S+/;
+      return re.test(this.email);
+    },
+    validatePassword() {
+      // password must be confirmed and atleast 6 char long
+      return this.confirmed === this.password && this.password.length > 5;
+    },
+    disableSubmit() {
+      // disable button if input are not valid
+      return (
+        !this.validateUsername() ||
+        !this.validateEmail() ||
+        !this.validatePassword()
+      );
+    },
     submit(e) {
       e.preventDefault();
-      this.registerUser({
-        username: this.username,
-        email: this.email,
-        password: this.password
-      });
+      if (
+        this.validateUsername() &&
+        this.validateEmail() &&
+        this.validatePassword()
+      ) {
+        this.registerUser({
+          username: this.username,
+          email: this.email,
+          password: this.password
+        });
+        this.$router.push({ name: "login", query: { redirect: "/login" } });
+      }
     }
   }
 };
@@ -107,14 +144,16 @@ export default {
 #submit {
   font-weight: 900;
   width: 200px;
-  background-image: linear-gradient(
-    178.2deg,
-    rgba(39, 101, 255, 1) 3.6%,
-    rgba(154, 234, 255, 1) 101.6%
-  );
 }
 .submit-container {
-  text-align: center;
   padding: 10px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+.disable-btn {
+  background: red;
+  cursor: not-allowed;
 }
 </style>

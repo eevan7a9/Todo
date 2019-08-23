@@ -72,7 +72,13 @@ main {
   align-items: center;
 }
 #login-container {
-  width: 800px;
+  width: 80%;
   text-align: left;
+}
+
+@media screen and (max-width: 700px) {
+  #login-container {
+    width: 90%;
+  }
 }
 </style>

@@ -70,9 +70,9 @@ export default new Vuex.Store({
       //   console.error(err);
       // })
     },
-    // registerUser({ commit }, new_user) {
-    //   console.log(new_user.username, new_user.email, new_user.password);
-    // },
+    registerUser({ commit }, new_user) {
+      console.log(new_user.username, new_user.email, new_user.password);
+    },
     async loginUser({ commit }, user) {
       await axios.post("/login",
         {

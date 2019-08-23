@@ -12,7 +12,6 @@
         :class="{'hide': getFilterBy == todo.completed}"
       >
         <!-- Todo Items -->
-
         <TodoItem :todo="todo" />
       </div>
     </section>
