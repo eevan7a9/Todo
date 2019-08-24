@@ -2,21 +2,22 @@
   <nav id="top-nav">
     <div id="nav" class="container">
       <router-link to="/">
-        <a>Home</a>
+        <a>Todo</a>
       </router-link>
 
       <router-link to="/about">
         <a>About</a>
       </router-link>
 
-      <router-link to="/register">
+      <router-link to="/register" v-if="getUserToken == null">
         <a>Register</a>
       </router-link>
 
-      <router-link to="/login">
+      <router-link to="/login" v-if="getUserToken == null">
         <a>Login</a>
       </router-link>
-      <router-link to="/logout">
+
+      <router-link to="/logout" v-if="getUserToken != null">
         <a>Logout</a>
       </router-link>
     </div>
@@ -24,8 +25,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  name: "navbar"
+  name: "navbar",
+  computed: {
+    ...mapGetters(["getUserToken"])
+  }
 };
 </script>
 
