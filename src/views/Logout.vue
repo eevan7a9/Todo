@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <h1>Logout</h1>
-  </main>
+  <main>...</main>
 </template>
 
 <script>
@@ -12,8 +10,9 @@ export default {
     ...mapActions(["logoutUser"])
   },
   created() {
-    this.logoutUser();
-    this.$router.push({ name: "login", query: { redirect: "/login" } });
+    this.logoutUser().then(() => {
+      this.$router.push({ name: "login", query: { redirect: "/login" } });
+    });
   }
 };
 </script>
