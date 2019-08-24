@@ -9,7 +9,8 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      meta: { requiresAuth: true }
     },
     {
       path: "/about",
@@ -24,19 +25,22 @@ export default new Router({
       path: "/register",
       name: "register",
       component: () =>
-        import("./views/Register.vue")
+        import("./views/Register.vue"),
+      meta: { requiresVisitor: true }
     },
     {
       path: "/login",
       name: "login",
       component: () =>
-        import("./views/Login.vue")
+        import("./views/Login.vue"),
+      meta: { requiresVisitor: true }
     },
     {
       path: "/logout",
       name: "Logout",
       component: () =>
-        import("./views/Logout.vue")
+        import("./views/Logout.vue"),
+      meta: { requiresAuth: true }
     }
   ]
 });
