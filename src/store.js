@@ -72,7 +72,7 @@ export default new Vuex.Store({
       //   console.error(err);
       // })
     },
-    async registerUser(new_user) {
+    async registerUser({ commit }, new_user) {
       await axios.post('/register', {
         name: new_user.username,
         email: new_user.email,
