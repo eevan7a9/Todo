@@ -31,7 +31,13 @@ export default new Vuex.Store({
       commit("setUserToken", token)
     },
     async getTodos({ commit }) {
-      await axios.get('/todos')
+      await axios.get('/todos', {
+        // we passed the header with token to give authentication to request
+        headers: {
+          "Authorization": `Bearer ${this.state.user_token}`,
+          "Accept": 'application/json'
+        }
+      })
         .then(response => {
           commit("setTodos", response.data)
         })
@@ -43,7 +49,12 @@ export default new Vuex.Store({
       await axios.post('/todos', {
         title: addedTodo.title,
         completed: addedTodo.completed
-      })
+      }, {
+          headers: {
+            "Authorization": `Bearer ${this.state.user_token}`,
+            "Accept": 'application/json'
+          }
+        })
         .then(response => {
           commit("setNewTodo", response.data)
         })
@@ -52,7 +63,13 @@ export default new Vuex.Store({
       // })
     },
     async deleteTodo({ commit }, id) {
-      await axios.delete(`todos/${id}`)
+      await axios.delete(`todos/${id}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${this.state.user_token}`,
+            "Accept": 'application/json'
+          }
+        })
         .then(response => {
           commit('removeTodo', response.data)
         })
@@ -64,7 +81,12 @@ export default new Vuex.Store({
       await axios.put(`todos/${todo.id}`, {
         title: todo.title,
         completed: todo.completed
-      })
+      }, {
+          headers: {
+            "Authorization": `Bearer ${this.state.user_token}`,
+            "Accept": 'application/json'
+          }
+        })
         .then(response => {
           commit("editTodo", response.data)
         })
