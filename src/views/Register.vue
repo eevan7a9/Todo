@@ -70,7 +70,9 @@
       </div>
 
       <div class="card-footer text-muted">
-        <span>Already Registered?</span>
+        <span>
+          <router-link to="/login">Already Registered?</router-link>
+        </span>
       </div>
     </div>
   </main>
