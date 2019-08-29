@@ -1,6 +1,7 @@
 <template>
   <main id="main">
     <div id="login-container">
+      <div class="alert alert-danger mt-5" v-if="errorMsg">{{errorMsg}}</div>
       <div class="card mt-5">
         <div class="card-header">
           <h3>Login</h3>
@@ -8,7 +9,7 @@
         <div class="card-body">
           <form>
             <div class="form-group">
-              <label for="username">Username / Email</label>
+              <label for="username">Email</label>
               <input
                 type="text"
                 class="form-control"
@@ -48,7 +49,8 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      errorMsg: ""
     };
   },
   methods: {
@@ -61,12 +63,14 @@ export default {
       }).then(() => {
         if (this.getUserToken) {
           this.$router.push({ name: "home", query: { redirect: "/" } });
+        } else if (this.getErrorMsg) {
+          this.errorMsg = this.getErrorMsg;
         }
       });
     }
   },
   computed: {
-    ...mapGetters(["getUserToken"])
+    ...mapGetters(["getUserToken", "getErrorMsg"])
   }
 };
 </script>

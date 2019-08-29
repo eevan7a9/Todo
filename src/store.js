@@ -11,6 +11,7 @@ export default new Vuex.Store({
     todos: [],
     filter_todo_by: 2, // 2 show all , 0 show completed, 1 show uncomplete
     user_token: localStorage.getItem("todo_user_token") || null,
+    error_message: ""
   },
   getters: {
     allTodos: function (state) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     getUserToken: function (state) {
       return state.user_token;
     },
+    getErrorMsg: function (state) {
+      return state.error_message;
+    }
   },
 
   actions: {
@@ -122,6 +126,8 @@ export default new Vuex.Store({
         })
         .catch(err => {
           if (err) {
+            // console.log(err.response.data);
+            commit("setErrorMsg", err.response.data);
             localStorage.removeItem('todo_user_token');
             commit("setUserToken", null);
           }
@@ -169,6 +175,9 @@ export default new Vuex.Store({
     },
     setUserToken(state, token) {
       state.user_token = token;
+    },
+    setErrorMsg(state, error_msg) {
+      state.error_message = error_msg;
     }
   }
 });
