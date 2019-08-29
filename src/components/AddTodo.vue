@@ -33,7 +33,7 @@ export default {
       this.addTodo({
         title: this.title,
         completed: 0
-      });
+      }).then(() => (this.title = ""));
     }
   }
 };

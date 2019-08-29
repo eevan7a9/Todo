@@ -15,11 +15,7 @@
       </div>
     </div>
     <div class="card-body" v-bind:class="{'completed': todo.completed}">
-      <span
-        id="title_display"
-        v-bind:class="{'hide': edit}"
-        @dblclick="editTodo"
-      >{{todo.id}} {{todo.title}}</span>
+      <span id="title_display" v-bind:class="{'hide': edit}" @dblclick="editTodo">{{todo.title}}</span>
     </div>
     <div class="form-group pl-2 pr-2" v-bind:class="{'hide': !edit}">
       <input type="text" class="form-control" v-model="title" @blur="editTodo" />
