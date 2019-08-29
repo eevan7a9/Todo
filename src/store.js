@@ -4,7 +4,7 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 // the base url of our api from our backend server
-axios.defaults.baseURL = 'http://localhost/Todo_backend/public/api';
+axios.defaults.baseURL = 'https://todo-laravue.herokuapp.com/api';
 
 export default new Vuex.Store({
   state: {
